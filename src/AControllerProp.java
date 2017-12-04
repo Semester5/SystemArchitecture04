@@ -14,9 +14,7 @@ public class AControllerProp extends DifferentialWheels {
     private static int MIN_SPEED = 0; // min. motor speed
     private static int MAX_SPEED = 1000; // max. motor speed
 
-    private LightSensor[] sensors; // Array with all distance sensors
-    private double[][] aktorenwerte;
-
+    private LightSensor[] sensors;
 
     //Sensorenwerte: 4 (getDistanceSensor)
     //Aktorenwerte 2 (links, rechts)
@@ -27,9 +25,10 @@ public class AControllerProp extends DifferentialWheels {
     public AControllerProp() {
         super();
         // get distance sensors and save them in array
-        sensors = new LightSensor[] {getLightSensor("led0"), getLightSensor("led2"), getLightSensor("led4"), getLightSensor("led6" )};
-        for (int i=0; i<4; i++)
+        sensors = new LightSensor[] { getLightSensor("ls1"), getLightSensor("ls4"), getLightSensor("ls6") };
+        for (int i=0; i<4; i++) {
             sensors[i].enable(10);
+        }
     }
 
     /**
@@ -50,63 +49,22 @@ public class AControllerProp extends DifferentialWheels {
     public void run() {
         while (step(TIME_STEP) != -1) {
 
-            int firstarray[][] = {{1, 2, -2, 0}, {-3, 4, 7, 2}, {6, 0, 3, 1}};
-            int sensorarray[] = {};
-            //git int [][] result =  multiplyMatrix(firstarray, sensorarray);
+            double sensorarray[][] = {};
+            for(int i = 0; i < sensors.length; i++) {
+                sensorarray[i][0] = sensors[i].getValue();
+            }
+
+            double aktorenarray[][] = {{10, 5, 20}, {20, 5, 10}};
+            double [][] result =  multiplyMatrix(aktorenarray, sensorarray);
+
             //driveRight();
         }
-        /*
-        while (step(TIME_STEP) != -1) {
-            if (sensors[S_FRONT_LEFT].getValue() > MAX_SENSOR_VALUE
-                    || sensors[S_LEFT].getValue() > MAX_SENSOR_VALUE) {
-                // drive right - reached a wall
-                driveRight();
-            } else if (sensors[S_FRONT_RIGHT].getValue() > MAX_SENSOR_VALUE
-                    || sensors[S_RIGHT].getValue() > MAX_SENSOR_VALUE) {
-                // drive left - reached a wall
-                driveLeft();
-            } else {
-                // drive forward if nothing is in front of the robot
-                driveForward();
-            }
-            //System.out.println("ps7: " + sensors[S_FRONT_RIGHT].getValue());
-        }
-        */
     }
 
-    /*
-     * Robot drives to the light bulb
-     */
-    private void driveToLightBulb() {
-
-    }
-
-    /**
-     * Robot drives to the right
-     */
-    private void driveRight() {
-        setSpeed(MAX_SPEED, MIN_SPEED);
-    }
-
-    /**
-     * Robot drives to the left
-     */
-    private void driveLeft() {
-        setSpeed(MIN_SPEED, MAX_SPEED);
-    }
-
-    /**
-     * Robot drives forward
-     */
-    private void driveForward() {
-        setSpeed(MAX_SPEED, MAX_SPEED);
-    }
-
-    private int [][] multiplyMatrix(int firstarray[][], int secondarray[][]) {
+    private double [][] multiplyMatrix(double firstarray[][], double secondarray[][]) {
         /* Create another array to store the result using the original arrays' lengths on row and column respectively. */
-        int [][] result = new int[firstarray.length][secondarray[0].length];
+        double [][] result = new double[firstarray.length][secondarray[0].length];
 
-        /* Loop through each and get product, then sum up and store the value */
         for (int i = 0; i < firstarray.length; i++) {
             for (int j = 0; j < secondarray[0].length; j++) {
                 for (int k = 0; k < firstarray[0].length; k++) {
