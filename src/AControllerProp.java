@@ -15,6 +15,9 @@ public class AControllerProp extends DifferentialWheels {
 
     private DistanceSensor[] sensors; // Array with all distance sensors
 
+    //Sensorenwerte: 4 (getDistanceSensor)
+    //Aktorenwerte 2 (links, rechts)
+
     /**
      * Constructor
      */
@@ -45,7 +48,11 @@ public class AControllerProp extends DifferentialWheels {
      */
     public void run() {
         while (step(TIME_STEP) != -1) {
-            driveRight();
+
+            int firstarray[][] = {{1, 2, -2, 0}, {-3, 4, 7, 2}, {6, 0, 3, 1}};
+            int secondarray[][] = {{-1, 3}, {0, 9}, {1, -11}, {4, -5}};
+            multiplyMatrix(firstarray, secondarray);
+            //driveRight();
         }
         /*
         while (step(TIME_STEP) != -1) {
@@ -92,5 +99,21 @@ public class AControllerProp extends DifferentialWheels {
      */
     private void driveForward() {
         setSpeed(MAX_SPEED, MAX_SPEED);
+    }
+
+    private void multiplyMatrix(int firstarray[][], int secondarray[][]) {
+        /* Create another array to store the result using the original arrays' lengths on row and column respectively. */
+        int [][] result = new int[firstarray.length][secondarray[0].length];
+
+        /* Loop through each and get product, then sum up and store the value */
+        for (int i = 0; i < firstarray.length; i++) {
+            for (int j = 0; j < secondarray[0].length; j++) {
+                for (int k = 0; k < firstarray[0].length; k++) {
+                    result[i][j] += firstarray[i][k] * secondarray[k][j];
+                }
+            }
+        }
+
+        System.out.println(result);
     }
 }
