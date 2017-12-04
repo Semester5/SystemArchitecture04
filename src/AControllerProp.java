@@ -50,8 +50,8 @@ public class AControllerProp extends DifferentialWheels {
         while (step(TIME_STEP) != -1) {
 
             int firstarray[][] = {{1, 2, -2, 0}, {-3, 4, 7, 2}, {6, 0, 3, 1}};
-            int secondarray[][] = {{-1, 3}, {0, 9}, {1, -11}, {4, -5}};
-            multiplyMatrix(firstarray, secondarray);
+            int sensorarray[] = {};
+            //git int [][] result =  multiplyMatrix(firstarray, sensorarray);
             //driveRight();
         }
         /*
@@ -101,7 +101,7 @@ public class AControllerProp extends DifferentialWheels {
         setSpeed(MAX_SPEED, MAX_SPEED);
     }
 
-    private void multiplyMatrix(int firstarray[][], int secondarray[][]) {
+    private int [][] multiplyMatrix(int firstarray[][], int secondarray[][]) {
         /* Create another array to store the result using the original arrays' lengths on row and column respectively. */
         int [][] result = new int[firstarray.length][secondarray[0].length];
 
@@ -113,7 +113,6 @@ public class AControllerProp extends DifferentialWheels {
                 }
             }
         }
-
-        System.out.println(result);
+        return result;
     }
 }
