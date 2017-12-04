@@ -1,5 +1,6 @@
 import com.cyberbotics.webots.controller.DifferentialWheels;
 import com.cyberbotics.webots.controller.DistanceSensor;
+import com.cyberbotics.webots.controller.LightSensor;
 
 public class AControllerProp extends DifferentialWheels {
     private static int TIME_STEP = 15;
@@ -13,7 +14,9 @@ public class AControllerProp extends DifferentialWheels {
     private static int MIN_SPEED = 0; // min. motor speed
     private static int MAX_SPEED = 1000; // max. motor speed
 
-    private DistanceSensor[] sensors; // Array with all distance sensors
+    private LightSensor[] sensors; // Array with all distance sensors
+    private double[][] aktorenwerte;
+
 
     //Sensorenwerte: 4 (getDistanceSensor)
     //Aktorenwerte 2 (links, rechts)
@@ -24,9 +27,7 @@ public class AControllerProp extends DifferentialWheels {
     public AControllerProp() {
         super();
         // get distance sensors and save them in array
-        sensors = new DistanceSensor[] { getDistanceSensor("ps5"),
-                getDistanceSensor("ps7"), getDistanceSensor("ps0"),
-                getDistanceSensor("ps2") };
+        sensors = new LightSensor[] {getLightSensor("led0"), getLightSensor("led2"), getLightSensor("led4"), getLightSensor("led6" )};
         for (int i=0; i<4; i++)
             sensors[i].enable(10);
     }
