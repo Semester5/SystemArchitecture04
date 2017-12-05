@@ -16,7 +16,7 @@ public class AControllerProp extends DifferentialWheels {
 
     private LightSensor[] sensors;
 
-    //Sensorenwerte: 4 (getDistanceSensor)
+    //Sensorenwerte: 3 (getDistanceSensor)
     //Aktorenwerte 2 (links, rechts)
 
     /**
