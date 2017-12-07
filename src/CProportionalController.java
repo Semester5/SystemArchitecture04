@@ -1,12 +1,12 @@
 import com.cyberbotics.webots.controller.DifferentialWheels;
 import com.cyberbotics.webots.controller.LightSensor;
 
-public abstract class ControllerProp extends DifferentialWheels {
+public abstract class CProportionalController extends DifferentialWheels {
 
     protected static int TIME_STEP = 15;
     protected LightSensor[] sensors;
 
-    public ControllerProp() {
+    public CProportionalController() {
         super();
         sensors = new LightSensor[] { getLightSensor("ls1"), getLightSensor("ls4"), getLightSensor("ls6") };
         for (int i=0; i<3; i++) {

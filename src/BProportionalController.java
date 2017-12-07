@@ -1,13 +1,25 @@
 import com.cyberbotics.webots.controller.DifferentialWheels;
-import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 
-public class AControllerProp extends DifferentialWheels {
+public class BProportionalController extends DifferentialWheels {
 
-    private static int TIME_STEP = 15;
-    private LightSensor[] sensors;
+    protected static int TIME_STEP = 15;
+    protected LightSensor[] sensors;
 
-    public AControllerProp() {
+    /*
+            this.sensors = new DistanceSensor[] {
+                getDistanceSensor("ps0"),
+                getDistanceSensor("ps1"),
+                getDistanceSensor("ps2"),
+                getDistanceSensor("ps3"),
+                getDistanceSensor("ps4"),
+                getDistanceSensor("ps5"),
+                getDistanceSensor("ps6"),
+                getDistanceSensor("ps7")
+        };
+     */
+
+    public BProportionalController() {
         super();
         sensors = new LightSensor[] { getLightSensor("ls1"), getLightSensor("ls4"), getLightSensor("ls6") };
         for (int i=0; i<3; i++) {
@@ -16,23 +28,31 @@ public class AControllerProp extends DifferentialWheels {
     }
 
     public static void main(String[] args) {
-        AControllerProp controller = new AControllerProp();
+        BProportionalController controller = new BProportionalController();
         controller.run();
     }
-
     public void run() {
         while (step(TIME_STEP) != -1) {
             double sensorarray[][] = new double[3][1];
+            boolean inFrontOfLight = false;
             for(int i = 0; i < sensors.length; i++) {
+                if(sensors[i].getValue() <= 1.0 ) {
+                    inFrontOfLight = true;
+                    break;
+                }
                 sensorarray[i][0] = getNewSensorValue(sensors[i].getValue());
             }
-            double aktorenarray[][] = {{1, 0.3, 0}, {0, 0.7, 1}};
-            double [][] result =  multiplyMatrix(aktorenarray, sensorarray);
+            if(!inFrontOfLight) {
+                double aktorenarray[][] = {{1, 0.3, 0}, {0, 0.7, 1}};
+                double[][] result = multiplyMatrix(aktorenarray, sensorarray);
 
-            double rightSpeed = getSpeedForWheel(result, 1);
-            double leftSpeed = getSpeedForWheel(result, 0);
+                double rightSpeed = getSpeedForWheel(result, 1);
+                double leftSpeed = getSpeedForWheel(result, 0);
 
-            setSpeed(leftSpeed + 500, rightSpeed + 500);
+                setSpeed(leftSpeed + 500, rightSpeed + 500);
+            } else {
+                break;
+            }
         }
     }
 
@@ -62,4 +82,5 @@ public class AControllerProp extends DifferentialWheels {
         }
         return result;
     }
+
 }
