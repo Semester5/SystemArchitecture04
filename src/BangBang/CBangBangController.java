@@ -7,7 +7,7 @@ public class CBangBangController extends BangBangController {
     private static int BALL_FOUND_VALUE  = 1000;
     private static int GREEN_TOL = 90;
     private static int BLUE_TOL = 90;
-    private static int RED_TOL = 180;
+    private static int RED_TOL = 140;
     private Camera camera;
 
     public CBangBangController() {
