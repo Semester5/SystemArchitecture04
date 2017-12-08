@@ -1,3 +1,5 @@
+package BangBang;
+
 import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 

@@ -1,45 +1,41 @@
 package Proportional;
 
-import com.cyberbotics.webots.controller.DifferentialWheels;
-import com.cyberbotics.webots.controller.LightSensor;
+import com.cyberbotics.webots.controller.*;
 
-public abstract class CProportionalController extends DifferentialWheels {
-
-    protected static int TIME_STEP = 15;
-    protected LightSensor[] sensors;
+public class CProportionalController extends BaseProportionalController {
 
     public CProportionalController() {
         super();
-        sensors = new LightSensor[] { getLightSensor("ls1"), getLightSensor("ls4"), getLightSensor("ls6") };
-        for (int i=0; i<3; i++) {
-            sensors[i].enable(10);
-        }
     }
 
-    protected double getNewSensorValue(double value) {
-        double newValue = (value * 100) / 4200;
-        newValue = 100 - newValue;
-        return  newValue;
+    @Override
+    protected void init() {
+        CONSTANT_LEFT_MOTOR = 500;
+        CONSTANT_RIGHT_MOTOR = 501;
+
+        this.sensors = new DistanceSensor[] {
+                getDistanceSensor("ps0"),
+                getDistanceSensor("ps7")
+        };
+
+        this.actorArray = new double[][]{ { 10, -10 }, { -10, 10 } };
+        this.sensorArray = new double[sensors.length][1];
     }
 
-    protected double getSpeedForWheel(double[][] result, int i) {
-        double value = 0.0;
-        for(int j = 0; j < result[i].length; j++) {
-            value += result[i][j];
-        }
-        return value;
+    @Override
+    protected void move(double leftMotorSpeed, double rightMotorSpeed) {
+        leftMotorSpeed = Math.max(0,leftMotorSpeed);
+        rightMotorSpeed = Math.max(0,rightMotorSpeed);
+
+        leftMotorSpeed = Math.min(MAX_MOTOR_SPEED, leftMotorSpeed);
+        rightMotorSpeed = Math.min(MAX_MOTOR_SPEED, rightMotorSpeed);
+
+        System.out.println("left: " +leftMotorSpeed + "\tright: " + rightMotorSpeed);
+        setSpeed(leftMotorSpeed, rightMotorSpeed);
     }
 
-    protected double [][] multiplyMatrix(double firstarray[][], double secondarray[][]) {
-        /* Create another array to store the result using the original arrays' lengths on row and column respectively. */
-        double [][] result = new double[firstarray.length][secondarray[0].length];
-        for (int i = 0; i < firstarray.length; i++) {
-            for (int j = 0; j < secondarray[0].length; j++) {
-                for (int k = 0; k < firstarray[0].length; k++) {
-                    result[i][j] += firstarray[i][k] * secondarray[k][j];
-                }
-            }
-        }
-        return result;
+    public static void main(String[] args) {
+        CProportionalController controller = new CProportionalController();
+        controller.run();
     }
 }

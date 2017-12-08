@@ -1,9 +1,6 @@
 package Proportional;
 
-import com.cyberbotics.webots.controller.Device;
-import com.cyberbotics.webots.controller.DifferentialWheels;
-import com.cyberbotics.webots.controller.DistanceSensor;
-import com.cyberbotics.webots.controller.LightSensor;
+import com.cyberbotics.webots.controller.*;
 
 public abstract class BaseProportionalController extends DifferentialWheels {
 
@@ -11,13 +8,12 @@ public abstract class BaseProportionalController extends DifferentialWheels {
     private static final int MAX_DISTANCE_SENSOR_VALUE = 200;
     protected static final int MAX_LIGHT_SENSOR_VALUE = 4250;
     protected static final int MAX_MOTOR_SPEED = 1000;
-    protected static final int CONSTANT_LEFT_MOTOR = -1;
-    protected static final int CONSTANT_RIGHT_MOTOR = -2;
+    protected static int CONSTANT_LEFT_MOTOR = -1;
+    protected static int CONSTANT_RIGHT_MOTOR = -2;
 
     protected Device[] sensors;
     protected double actorArray[][];
     protected double sensorArray[][];
-
 
     public BaseProportionalController() {
         super();

@@ -1,6 +1,7 @@
+package BangBang;
+
 import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DistanceSensor;
-import com.cyberbotics.webots.controller.LightSensor;
 
 public class CBangBangController extends BangBangController {
     private static int BALL_FOUND_VALUE  = 50;
