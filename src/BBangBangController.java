@@ -1,5 +1,3 @@
-package BangBang;
-
 import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 
@@ -9,21 +7,15 @@ public class BBangBangController extends BangBangController {
         super();
         this.lightSensors = new LightSensor[] {
                 getLightSensor("ls0"),
-                getLightSensor("ls1"),
-                getLightSensor("ls2"),
-                getLightSensor("ls3"),
-                getLightSensor("ls4"),
-                getLightSensor("ls5"),
-                getLightSensor("ls6"),
                 getLightSensor("ls7")
         };
         this.distanceSensors = new DistanceSensor[] {
                 getDistanceSensor("ps0"),
-                getDistanceSensor("ps1")
+                getDistanceSensor("ps7")
         };
 
         for (int i = 0; i < lightSensors.length; i++) {
-            lightSensors[i].enable(10);
+            lightSensors[i].enable(2);
         }
         for (int i = 0; i < distanceSensors.length; i++) {
             distanceSensors[i].enable(2);
@@ -40,14 +32,12 @@ public class BBangBangController extends BangBangController {
                     setSpeed(MIN_SPEED, MIN_SPEED);
                     lightFound = true;
                     System.out.println("ROBOT STOPPED");
+                } else if (lightSensors[L_FRONT_RIGHT].getValue() > lightSensors[L_FRONT_LEFT].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
+                    driveLeft();
+                } else if (lightSensors[L_FRONT_RIGHT].getValue() < lightSensors[L_FRONT_LEFT].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
+                    driveRight();
                 } else {
-                    if (lightSensors[L_FRONT_RIGHT].getValue() > lightSensors[L_FRONT_LEFT].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
-                        driveLeft();
-                    } else if (lightSensors[L_FRONT_RIGHT].getValue() < lightSensors[L_FRONT_LEFT].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
-                        driveRight();
-                    } else {
-                        driveForward();
-                    }
+                    driveForward();
                 }
             }
         }
