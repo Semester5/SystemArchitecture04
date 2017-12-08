@@ -15,10 +15,10 @@ public class BBangBangController extends BangBangController {
         };
 
         for (int i = 0; i < lightSensors.length; i++) {
-            lightSensors[i].enable(2);
+            lightSensors[i].enable(10);
         }
         for (int i = 0; i < distanceSensors.length; i++) {
-            distanceSensors[i].enable(2);
+            distanceSensors[i].enable(10);
         }
     }
 

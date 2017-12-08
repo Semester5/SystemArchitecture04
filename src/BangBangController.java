@@ -14,6 +14,8 @@ public abstract class BangBangController extends DifferentialWheels {
 
     protected static int D_FRONT_RIGHT = 0; //ps0
     protected static int D_FRONT_LEFT = 1; //ps7
+    protected static int D_RIGHT_RIGHT = 2;//p2 RIGHT RIGHT
+    protected static int D_LEFT_LEFT = 3; //ps6 LEFT LEFT
 
     protected LightSensor[] lightSensors;
     protected DistanceSensor[] distanceSensors;
