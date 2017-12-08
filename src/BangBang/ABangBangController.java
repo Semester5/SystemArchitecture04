@@ -1,3 +1,5 @@
+package BangBang;
+
 import com.cyberbotics.webots.controller.LightSensor;
 
 public class ABangBangController extends BangBangController {
