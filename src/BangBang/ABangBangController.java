@@ -1,19 +1,10 @@
+package BangBang;
+
 import com.cyberbotics.webots.controller.DifferentialWheels;
 import com.cyberbotics.webots.controller.LightSensor;
 
-public class ABangBangController extends DifferentialWheels {
-    private static int TIME_STEP = 15;
+public class ABangBangController extends BangBangController {
 
-    private static int MAX_SENSOR_VALUE = 4250;
-    private static int MIN_SPEED = 0; // min. motor speed
-    private static int MAX_SPEED = 1000; // max. motor speed
-    private static int MAX_HYSTERESIS = 1;
-
-    private LightSensor[] lightSensors;
-
-    /**
-     * Constructor
-     */
     public ABangBangController() {
         super();
         this.lightSensors = new LightSensor[] {
@@ -35,28 +26,15 @@ public class ABangBangController extends DifferentialWheels {
     public void run() {
         while (step(TIME_STEP) != -1) {
             double hysteresis = Math.abs(lightSensors[0].getValue() - lightSensors[7].getValue());
-            if (lightSensors[0].getValue() > lightSensors[7].getValue() && hysteresis > MAX_HYSTERESIS) {
+            if (lightSensors[0].getValue() > lightSensors[7].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
                 driveLeft();
-            } else if (lightSensors[0].getValue() < lightSensors[7].getValue() && hysteresis > MAX_HYSTERESIS) {
+            } else if (lightSensors[0].getValue() < lightSensors[7].getValue() && hysteresis > MAX_HYSTERESIS && hysteresis > 50) {
                 driveRight();
             } else {
                 driveForward();
             }
         }
     }
-
-    private void driveRight() {
-        setSpeed(MAX_SPEED, MIN_SPEED);
-    }
-
-    private void driveLeft() {
-        setSpeed(MIN_SPEED, MAX_SPEED);
-    }
-
-    private void driveForward() {
-        setSpeed(MAX_SPEED, MAX_SPEED);
-    }
-
     public static void main(String[] args) {
         ABangBangController controller = new ABangBangController();
         controller.run();
