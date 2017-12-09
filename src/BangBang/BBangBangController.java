@@ -26,6 +26,7 @@ public class BBangBangController extends BangBangController {
 
     public void run() {
         boolean lightFound = false;
+
         while (step(TIME_STEP) != -1 ) {
             if(!lightFound) {
                 System.out.println("RIGHT: " + distanceSensors[D_FRONT_RIGHT].getValue() + " LEFT: " + distanceSensors[D_FRONT_LEFT].getValue());

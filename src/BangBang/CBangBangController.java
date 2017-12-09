@@ -57,5 +57,4 @@ public class CBangBangController extends BangBangController {
         CBangBangController controller = new CBangBangController();
         controller.run();
     }
-
 }

@@ -37,6 +37,10 @@ public abstract class BaseProportionalController extends DifferentialWheels {
         }
     }
 
+    protected abstract void init();
+
+    protected abstract void move(double leftMotorSpeed, double rightMotorSpeed);
+
     protected void step() {
         sensorArray = new double[sensors.length][1];
         for (int i = 0; i < sensors.length; i++) {
@@ -95,8 +99,4 @@ public abstract class BaseProportionalController extends DifferentialWheels {
         double newSensorValue = value / maxValue;
         return 1 - newSensorValue;
     }
-
-    protected abstract void init();
-
-    protected abstract void move(double leftMotorSpeed, double rightMotorSpeed);
 }
