@@ -5,8 +5,8 @@ import com.cyberbotics.webots.controller.DistanceSensor;
 
 public class CBangBangController extends BangBangController {
     private static int BALL_FOUND_VALUE  = 1000;
-    private static int GREEN_TOL = 90;
-    private static int BLUE_TOL = 90;
+    private static int GREEN_TOL = 80;
+    private static int BLUE_TOL = 80;
     private static int RED_TOL = 140;
     private Camera camera;
 
@@ -43,10 +43,13 @@ public class CBangBangController extends BangBangController {
             } else {
                 double diff = Math.abs(distanceSensors[D_FRONT_RIGHT].getValue() - distanceSensors[D_FRONT_LEFT].getValue());
                 if (distanceSensors[D_FRONT_RIGHT].getValue() > distanceSensors[D_FRONT_LEFT].getValue() && diff > BALL_FOUND_VALUE) {
+                    System.out.println("DRIVERIGHT: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
                     driveRight();
                 } else if (distanceSensors[D_FRONT_RIGHT].getValue() < distanceSensors[D_FRONT_LEFT].getValue() && diff > BALL_FOUND_VALUE) {
+                    System.out.println("DRIVELEFT: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
                     driveLeft();
                 } else {
+                    System.out.println("DRIVEFORWARD: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
                     driveForward();
                 }
             }
