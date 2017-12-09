@@ -5,7 +5,7 @@ import com.cyberbotics.webots.controller.*;
 public abstract class BaseProportionalController extends DifferentialWheels {
 
     private static final int TIME_STEP = 15;
-    private static final int MAX_DISTANCE_SENSOR_VALUE = 200;
+    protected static final int MAX_DISTANCE_SENSOR_VALUE = 200;
     protected static final int MAX_LIGHT_SENSOR_VALUE = 4250;
     protected static final int MAX_MOTOR_SPEED = 1000;
     protected static int CONSTANT_LEFT_MOTOR = -1;
@@ -98,11 +98,11 @@ public abstract class BaseProportionalController extends DifferentialWheels {
         return getPercentSensorValue(value, MAX_DISTANCE_SENSOR_VALUE);
     }
 
-    private double getPercentSensorValue(double value, int maxValue) {
+    protected double getPercentSensorValue(double value, int maxValue) {
         return value / maxValue;
     }
 
-    private double getNegativePercentSensorValue(double value, int maxValue) {
+    protected double getNegativePercentSensorValue(double value, int maxValue) {
         double newSensorValue = value / maxValue;
         return 1 - newSensorValue;
     }
