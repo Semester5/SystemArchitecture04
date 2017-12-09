@@ -24,6 +24,20 @@ public class AProportionalController extends BaseProportionalController {
         this.sensorArray = new double[sensors.length][1];
     }
 
+    @Override
+    protected void move(double leftMotorSpeed, double rightMotorSpeed) {
+        //Normalisierung der Motorenewrte, da der Robi sonst sehr langsam ist
+        if(leftMotorSpeed > rightMotorSpeed) {
+            rightMotorSpeed *= MAX_MOTOR_SPEED / leftMotorSpeed;
+            leftMotorSpeed = MAX_MOTOR_SPEED;
+        } else {
+            leftMotorSpeed *= MAX_MOTOR_SPEED / rightMotorSpeed;
+            rightMotorSpeed = MAX_MOTOR_SPEED;
+        }
+        System.out.println("left: " + leftMotorSpeed + "\tright: " + rightMotorSpeed);
+        setSpeed(leftMotorSpeed, rightMotorSpeed);
+    }
+
     public static void main(String[] args) {
         AProportionalController controller = new AProportionalController();
         controller.run();
