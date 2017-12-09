@@ -12,27 +12,32 @@ public class CBangBangController extends BangBangController {
 
     public CBangBangController() {
         super();
+
         this.distanceSensors = new DistanceSensor[] {
                 getDistanceSensor("ps0"),
                 getDistanceSensor("ps7"),
                 getDistanceSensor("ps2"),
                 getDistanceSensor("ps5")
         };
+
         for (int i = 0; i < distanceSensors.length; i++) {
             distanceSensors[i].enable(10);
         }
+
         camera = getCamera("camera");
         camera.enable(10);
     }
 
     public void run() {
         boolean foundElement = false;
+
         while (step(TIME_STEP) != -1 ) {
             if(!foundElement) {
                 int[] image = camera.getImage();
                 int red = Camera.imageGetRed(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
                 int blue = Camera.imageGetBlue(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
                 int green = Camera.imageGetGreen(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
+
                 if((red < RED_TOL) && (blue < BLUE_TOL) && (green < GREEN_TOL)) {
                     foundElement = true;
                 } else {

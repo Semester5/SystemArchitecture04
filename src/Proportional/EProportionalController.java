@@ -15,23 +15,25 @@ public class EProportionalController extends BaseProportionalController {
 
         this.sensors = new DistanceSensor[] {
             getDistanceSensor("ps0"),
+            getDistanceSensor("ps5"),
             getDistanceSensor("ps7"),
         };
 
-        this.actorArray = new double[][]{ { 0, 0 }, { 5, 10 } };
+        this.actorArray = new double[][]{ { 0, -10, 0 }, { 5, -1, 10 } };
         this.sensorArray = new double[sensors.length][1];
     }
 
     @Override
     protected void move(double leftMotorSpeed, double rightMotorSpeed) {
-        leftMotorSpeed = Math.max(0,leftMotorSpeed);
+        leftMotorSpeed = Math.max(-MAX_MOTOR_SPEED,leftMotorSpeed);
         rightMotorSpeed = Math.max(0,rightMotorSpeed);
 
         leftMotorSpeed = Math.min(MAX_MOTOR_SPEED, leftMotorSpeed);
         rightMotorSpeed = Math.min(MAX_MOTOR_SPEED, rightMotorSpeed);
 
         System.out.println("left: " +leftMotorSpeed + "\tright: " + rightMotorSpeed +
-                "ps0: " + ((DistanceSensor) sensors[0]).getValue() + "\tps7: " + ((DistanceSensor) sensors[1]).getValue());
+                "ps0: " + ((DistanceSensor) sensors[0]).getValue() + "\tps5: " + ((DistanceSensor) sensors[1]).getValue()
+                + "\tps7: " + ((DistanceSensor) sensors[2]).getValue());
         setSpeed(leftMotorSpeed, rightMotorSpeed);
     }
 

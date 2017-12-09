@@ -12,6 +12,7 @@ public class EBangBangController extends BangBangController {
 
     public EBangBangController() {
         super();
+
         this.distanceSensors = new DistanceSensor[]{
                 getDistanceSensor("ps0"),
                 getDistanceSensor("ps7"),
@@ -19,14 +20,10 @@ public class EBangBangController extends BangBangController {
                 getDistanceSensor("ps5"),
                 getDistanceSensor("ps6")
         };
+
         for (int i = 0; i < distanceSensors.length; i++) {
             distanceSensors[i].enable(10);
         }
-    }
-
-    public static void main(String[] args) {
-        EBangBangController controller = new EBangBangController();
-        controller.run();
     }
 
     public void run() {
@@ -43,6 +40,11 @@ public class EBangBangController extends BangBangController {
                 driveForward();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        EBangBangController controller = new EBangBangController();
+        controller.run();
     }
 }
 
